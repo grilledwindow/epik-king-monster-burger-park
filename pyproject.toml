@@ -1,0 +1,8 @@
+[project]
+name = 'epik_king_monster_burger_park'
+version = '0.1.0'
+readme = 'README.md'
+dependencies = [
+    'streamlit==1.67.0',
+]
+
