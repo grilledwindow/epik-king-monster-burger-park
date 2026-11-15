@@ -17,18 +17,23 @@ session = st.session_state
 
 st.write("# Epik King Monster Burger Park")
 
+YOUNG_CHILD = 'young-child'
+CHILD = 'child'
+ADULT = 'adult'
+SENIOR = 'senior'
+
 ticket_prices = {
     'weekday': {
-        'young-child': 0,
-        'child': 30,
-        'adult': 50,
-        'senior': 30
+        YOUNG_CHILD: 0,
+        CHILD: 30,
+        ADULT: 50,
+        SENIOR: 30
     },
     'weekend': {
-        'young-child': 0,
-        'child': 40,
-        'adult': 60,
-        'senior': 40
+        YOUNG_CHILD: 0,
+        CHILD: 40,
+        ADULT: 60,
+        SENIOR: 40
     }
 }
 
