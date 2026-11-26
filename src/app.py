@@ -109,4 +109,4 @@ total_text = get_ticket_price_display(total)
 st.write(f'### Total: {total_text}')
 #book button
 if st.button('Book now'):
-    st.success(f'Booked {quantity} x {age_label} ticket(s) for {nice_date}. Total: {total_text}')
+    st.success(f'Booked {quantity} x {age_label} ticket(s) for {nice_date}. Total: {total_text}')st.write('## gyat')
