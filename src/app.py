@@ -17,6 +17,7 @@ session = st.session_state
 
 st.write("# Epik King Monster Burger Park")
 
+#ticket categories:
 YOUNG_CHILD = 'young-child'
 CHILD = 'child'
 ADULT = 'adult'
@@ -51,3 +52,61 @@ ticket_table_data = {
 
 st.write('## Ticket prices')
 st.table(ticket_table_data)
+st.write('## Book tickets') 
+
+#cvhoose age group
+age_groups = {
+    'Child (<5 y/o)': YOUNG_CHILD,
+    'Child (<12 y/o)': CHILD,
+    'Normal (<60 y/o)': ADULT,
+    'Senior (60 y/o & above)': SENIOR,
+}
+
+age_label = st.selectbox('Select your age group', list(age_groups.keys()))
+age_group = age_groups[age_label]
+quantity = st.number_input('Number of tickets', min_value=1, max_value=50, value=1, step=1)
+
+#calendar booking app interface
+visit_date = st.date_input('Choose your visiting date')
+
+#day type for ticket price calcs (weekday, weekend, public holiday)
+def get_day_type(visit_date):
+    date_str = visit_date.strftime('%Y-%m-%d')
+
+    if date_str in date_ph_dict:
+        return 'public holiday'
+
+    if visit_date.weekday() >= 5:
+        return 'weekend'
+
+    else :
+        return 'weekday'
+
+day_type = get_day_type(visit_date)
+if day_type == 'weekday':
+    price_column = 'weekday'
+else:
+    price_column = 'weekend'
+
+#web part for ticket selection
+price = ticket_prices[price_column][age_group]
+price_text = get_ticket_price_display(price)
+nice_date = visit_date.strftime('%A, %d %B %Y')
+
+#day type display
+if day_type == 'public holiday':
+    holiday_name = date_ph_dict[visit_date.strftime('%Y-%m-%d')]
+    st.info(f'{nice_date} is **{holiday_name}**, so the ticket price is: {price_text}')
+elif day_type == 'weekend':
+    st.info(f'{nice_date} is a weekend, so the ticket price is: {price_text}')
+else:
+    st.info(f'{nice_date} is a weekday, so the ticket price is: {price_text}')
+
+#total price display
+total = price * quantity
+total_text = get_ticket_price_display(total)
+
+st.write(f'### Total: {total_text}')
+#book button
+if st.button('Book now'):
+    st.success(f'Booked {quantity} x {age_label} ticket(s) for {nice_date}. Total: {total_text}')
